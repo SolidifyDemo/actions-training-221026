@@ -6,8 +6,10 @@ name: Main CI build
 on:
   push:
     branches: [ "main" ]
+    paths: 'wwwroot/**'    
   pull_request:
     branches: [ "main" ]
+    paths: 'wwwroot/**'
   workflow_dispatch:
     inputs:
       reason: 

@@ -23,10 +23,13 @@ jobs:
       run: echo "run-tests=false" >> $GITHUB_OUTPUT
 
   build:
-
+    env:
+      GITHUB_CONTEXT: ${{ toJSON(github) }}
     runs-on: ubuntu-latest
 
     steps:
+    - name: dump context
+      run: echo "$GITHUB_CONTEXT"
     - uses: actions/checkout@v3
     - name: Setup .NET
       uses: actions/setup-dotnet@v3

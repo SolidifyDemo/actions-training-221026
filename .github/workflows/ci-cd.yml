@@ -30,7 +30,7 @@ jobs:
     steps:
     - name: dump context
       run: echo "$GITHUB_CONTEXT"
-    - uses: actions/checkout@latest
+    - uses: actions/checkout@3
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:

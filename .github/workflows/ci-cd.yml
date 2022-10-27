@@ -48,6 +48,9 @@ jobs:
       with:
         name: webapp
         path: webapp/**
+    - name: Report succcess
+      if: success()
+      run: echo "### Job succeess :rocket:" >> $GITHUB_STEP_SUMMARY
 
   deploy_dev:
     name: "Deploy to development environment"

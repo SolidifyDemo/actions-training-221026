@@ -1,0 +1,61 @@
+name: Main build and deploy workflow
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+    inputs:
+      reason: 
+        description: "Why are you running this workflow manually?"
+        required: true      
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 5.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
+    - name: Package
+      run: dotnet publish -c Release -o webapp
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3.1.1
+      with:
+        name: webapp
+        path: webapp/**
+
+  deploy_dev:
+    name: "Deploy to development environment"
+    runs-on: ubuntu-latest
+    environment: 
+      name: "Dev"
+    steps:
+    - run: echo "test"
+    
+  deploy_test:
+    name: "Deploy to test environment"
+    runs-on: ubuntu-latest
+    environment: 
+      name: "Test"
+    steps:
+    - run: echo "test"
+    
+  deploy_prod:
+    name: "Deploy to prod environment"
+    runs-on: ubuntu-latest
+    environment: 
+      name: "Prod"
+    steps:
+    - run: echo "test"    

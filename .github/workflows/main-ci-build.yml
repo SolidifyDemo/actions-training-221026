@@ -22,10 +22,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Update semver
-      run: echo ${{github.ref_name}}
-    
-    
+    - name: Docker meta
+      id: meta
+      uses: docker/metadata-action@v4
+      with:
+        images: |
+          name/app
+        tags: |
+          type=ref,event=branch
+          type=ref,event=pr
+          type=semver,pattern={{version}}
+          type=semver,pattern={{major}}.{{minor}}
     
     
     

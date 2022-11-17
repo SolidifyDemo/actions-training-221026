@@ -91,6 +91,10 @@ jobs:
     environment: 
       name: "Test"
     steps:
+    - name: Login via Azure CLI
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIAL }}
     - run: echo "test"
 
   run_tests:
